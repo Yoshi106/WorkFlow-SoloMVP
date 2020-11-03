@@ -15,7 +15,7 @@ const typeDefs = gql`
     country: String
     date: Date
     status: String
-    techinical: String
+    technical: String
     assistant: String
   }
 

@@ -15,7 +15,6 @@ const resolvers = {
       let result;
       await Task.find((err, tasks) => {
         if (err) return console.error(err);
-        console.log(tasks);
         result = tasks;
       });
       return result;
