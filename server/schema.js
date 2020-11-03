@@ -1,10 +1,22 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-type Member {
-    id: Int
+  scalar Date
+
+  type Member {
+    id: ID
     name: String
-    group: String
+    role: String
+  }
+
+  type Tasks {
+    id: ID
+    num: String
+    country: String
+    date: Date
+    status: String
+    techinical: String
+    assistant: String
   }
 
   input MemberInput {
@@ -18,6 +30,7 @@ type Member {
   }
 
   type Query {
+    getAllTasks: [Tasks]
     findMember(name: String): Member
     findAllMembers: [Member]
   }
