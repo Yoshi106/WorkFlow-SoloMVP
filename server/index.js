@@ -4,8 +4,6 @@ const { ApolloServer } = require("apollo-server");
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 
-// Setup global support for environment variable based proxy configuration.
-
 const server = new ApolloServer({ typeDefs, resolvers });
 
 const PORT = process.env.PORT || 5000;
