@@ -13,6 +13,7 @@ mongoose.connect(
 const userSchema = new mongoose.Schema({
   name: "String",
   role: "String",
+  hushpass: "String",
 });
 const User = mongoose.model("User", userSchema);
 

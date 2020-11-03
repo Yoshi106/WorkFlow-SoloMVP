@@ -8,6 +8,7 @@
 // const openConnection = require("./mongoose");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const bcrypt = require("bcrypt");
 
 const resolvers = {
   Query: {
@@ -37,6 +38,16 @@ const resolvers = {
       });
       return result;
     },
+    logIn: async (parent, args, { User }) => {
+      try {
+        const user = await User.find({ name: args.user }).exec();
+        const res = await bcrypt.compare(args.password, user[0].hushpass);
+        if (res) return { msg: "success" };
+        else return { msg: "failed" };
+      } catch {
+        return { boolean: "error" };
+      }
+    },
   },
 
   Mutation: {
@@ -50,9 +61,22 @@ const resolvers = {
         });
       return { msg: "Updated!" };
     },
-    createMember: async (parent, args) => {
-      await knex("company").insert(args.input);
-      return { msg: "Created!" };
+    createMember: async (parent, args, { User }) => {
+      try {
+        const salt = 10;
+        const hushedPassword = await bcrypt.hash(args.input.password, salt);
+        const user = new User({
+          name: args.input.name,
+          role: args.input.role,
+          hushpass: hushedPassword,
+        });
+        await user.save((err, users) => {
+          if (err) return { msg: "error" };
+        });
+        return { msg: "success" };
+      } catch {
+        return { msg: "error" };
+      }
     },
     removeMember: async (parent, args) => {
       await knex("company")

@@ -19,10 +19,14 @@ const typeDefs = gql`
     assistant: String
   }
 
+  type Response {
+    boolean: Boolean
+  }
+
   input MemberInput {
-    id: Int!
     name: String!
-    group: String!
+    role: String
+    password: String!
   }
 
   type Message {
@@ -33,6 +37,7 @@ const typeDefs = gql`
     getAllTasks: [Tasks]
     findMember(name: String): Member
     findAllMembers: [Member]
+    logIn(user: String, password: String): Message
   }
   type Mutation {
     modifyGroup(name: String, group: String): Message

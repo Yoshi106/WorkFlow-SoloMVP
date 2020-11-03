@@ -33,8 +33,8 @@ module.exports = openConnection;
 //       role: "Technical"
 //   });
 //   console.log(user.name);
-//   user.save((err, users) => {
-//       if(err) return console.error(err);
-//       console.log(users);
-//   });
+// user.save((err, users) => {
+//     if(err) return console.error(err);
+//     console.log(users);
+// });
 // });

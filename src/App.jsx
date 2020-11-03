@@ -1,7 +1,7 @@
 // import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Tasklist from "./Components/Tasklist";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
@@ -11,6 +11,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [loginUser, setLoginUser] = useState(null);
 
   useEffect(() => {
     fetchTasks().then((result) => {
@@ -55,13 +56,13 @@ function App() {
     return res;
   }
 
-  function getUserList() {
-    const array = [];
-    for (const user of users) {
-      array.push(<option value={user.name}>{user.name}</option>);
-    }
-    return array;
-  }
+  // function getUserList() {
+  //   const array = [];
+  //   for (const user of users) {
+  //     array.push(<option value={user.name}>{user.name}</option>);
+  //   }
+  //   return array;
+  // }
 
   function toggleLogin() {
     if (!showLogin) setShowLogin(true);
@@ -105,10 +106,14 @@ function App() {
       >
         Sign Up
       </button>
-      {showLogin ? <Login /> : <></>}
-      {showSignup ? <Signup /> : <></>}
+      {showLogin ? <Login setLoginUser={setLoginUser} /> : <></>}
+      {showSignup ? <Signup setLoginUser={setLoginUser} /> : <></>}
 
-      {tasks !== null ? <Tasklist tasks={tasks} setTasks={setTasks} /> : <></>}
+      {tasks !== null && loginUser !== null ? (
+        <Tasklist tasks={tasks} setTasks={setTasks} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
