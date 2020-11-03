@@ -6,12 +6,20 @@ import React, { useEffect } from "react";
 function App() {
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get("/api");
-      console.log(res.data, "aaa");
+      const res = await axios({
+        url: "/graphql",
+        method: "post",
+        data: {
+          query: `
+          query {findAllMembers {
+            id
+          }}`,
+        },
+      });
       return res;
     }
-    fetchData().then((data) => {
-      console.log(data, "ccc");
+    fetchData().then((result) => {
+      console.log(result.data, "bbb");
     });
   }, []);
 
