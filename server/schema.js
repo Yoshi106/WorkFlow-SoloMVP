@@ -9,7 +9,7 @@ const typeDefs = gql`
     role: String
   }
 
-  type Tasks {
+  type Task {
     id: ID
     num: String
     country: String
@@ -17,6 +17,7 @@ const typeDefs = gql`
     status: String
     technical: String
     assistant: String
+    responsible: String
   }
 
   type Response {
@@ -34,7 +35,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    getAllTasks: [Tasks]
+    getAllTasks: [Task]
+    getTask(user: String): [Task]
     findMember(name: String): Member
     findAllMembers: [Member]
     logIn(user: String, password: String): Message

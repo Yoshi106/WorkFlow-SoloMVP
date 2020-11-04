@@ -24,6 +24,7 @@ const taskSchema = new mongoose.Schema({
   status: "String",
   technical: "String",
   assistant: "String",
+  responsible: "String",
 });
 const Task = mongoose.model("Task", taskSchema);
 

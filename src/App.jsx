@@ -14,13 +14,16 @@ function App() {
   const [loginUser, setLoginUser] = useState(null);
 
   useEffect(() => {
-    fetchTasks().then((result) => {
-      setTasks(result.data.data.getAllTasks);
-    });
     fetchUsers().then((result) => {
       setUsers(result.data.data.findAllMembers);
     });
   }, []);
+
+  useEffect(() => {
+    fetchTasks().then((result) => {
+      setTasks(result.data.data.getTask);
+    });
+  }, [loginUser]);
 
   async function fetchTasks() {
     const res = await axios({
@@ -28,13 +31,14 @@ function App() {
       method: "post",
       data: {
         query: `
-        query {getAllTasks {
+        query {getTask(user: "${loginUser}"){
           num
           country
           date
           status
           technical
           assistant
+          responsible
         }}`,
       },
     });
@@ -88,26 +92,48 @@ function App() {
         <option value="">User</option>
         {getUserList()}
       </select> */}
-      <button
-        className="login-button"
-        onClick={() => {
-          toggleLogin();
-          if (showSignup) toggleSignup();
-        }}
-      >
-        Login
-      </button>
-      <button
-        className="signup-button"
-        onClick={() => {
-          toggleSignup();
-          if (showLogin) toggleLogin();
-        }}
-      >
-        Sign Up
-      </button>
-      {showLogin ? <Login setLoginUser={setLoginUser} /> : <></>}
-      {showSignup ? <Signup setLoginUser={setLoginUser} /> : <></>}
+      {loginUser === null ? (
+        <>
+          <button
+            className="login-button"
+            onClick={() => {
+              toggleLogin();
+              if (showSignup) toggleSignup();
+            }}
+          >
+            Login
+          </button>
+          <button
+            className="signup-button"
+            onClick={() => {
+              toggleSignup();
+              if (showLogin) toggleLogin();
+            }}
+          >
+            Sign Up
+          </button>
+        </>
+      ) : (
+        <></>
+      )}
+      {showLogin ? (
+        <Login
+          setLoginUser={setLoginUser}
+          setShowLogin={setShowLogin}
+          setShowSignup={setShowSignup}
+        />
+      ) : (
+        <></>
+      )}
+      {showSignup ? (
+        <Signup
+          setLoginUser={setLoginUser}
+          setShowLogin={setShowLogin}
+          setShowSignup={setShowSignup}
+        />
+      ) : (
+        <></>
+      )}
 
       {tasks !== null && loginUser !== null ? (
         <Tasklist tasks={tasks} setTasks={setTasks} />

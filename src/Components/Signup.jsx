@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import axios from "axios";
 
-export default function Signup({ setLoginUser }) {
+export default function Signup({ setLoginUser, setShowLogin, setShowSignup }) {
   const userRef = useRef(null);
   const pswRef = useRef(null);
   const roleRef = useRef(null);
@@ -18,14 +18,16 @@ export default function Signup({ setLoginUser }) {
       },
     });
     if (res.data.data.createMember.msg === "success") {
-      setLoginUser(userRef);
+      setLoginUser(userRef.current.value);
+      setShowLogin(false);
+      setShowSignup(false);
     }
     return res.data.data.createMember.msg;
   }
 
   return (
     <div id="myForm">
-      <form action="/action_page.php" className="form-container">
+      <form className="form-container">
         <h1>Sign Up</h1>
 
         <label>

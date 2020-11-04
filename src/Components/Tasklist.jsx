@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Tasklist({ tasks, setTasks }) {
   function taskGenerator() {
-    let wrap = [["Case", "Status", "Date", "Tech", "Assistant"]];
+    let wrap = [["Case", "Status", "Date", "Tech", "Assistant", "In Charge"]];
     tasks.map((task) => {
       let store = [];
       store.push(task.num + "-" + task.country);
@@ -10,6 +10,7 @@ export default function Tasklist({ tasks, setTasks }) {
       store.push(task.date);
       store.push(task.technical);
       store.push(task.assistant);
+      store.push(task.responsible);
       wrap.push(store);
     });
     const taskElements = wrap.map((task) => {

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import axios from "axios";
 
-export default function Login({ setLoginUser }) {
+export default function Login({ setLoginUser, setShowLogin, setShowSignup }) {
   const userRef = useRef(null);
   const pswRef = useRef(null);
 
@@ -17,7 +17,9 @@ export default function Login({ setLoginUser }) {
       },
     });
     if (res.data.data.logIn.msg === "success") {
-      setLoginUser(userRef);
+      setLoginUser(userRef.current.value);
+      setShowLogin(false);
+      setShowSignup(false);
     }
     return res.data.data.logIn.msg;
   };

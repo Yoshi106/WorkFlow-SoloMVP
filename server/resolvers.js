@@ -20,6 +20,10 @@ const resolvers = {
       });
       return result;
     },
+    getTask: async (parent, args, { Task }) => {
+      const result = await Task.find({ responsible: args.user }).exec();
+      return result;
+    },
     findMember: (parent, args) => {
       return knex
         .select()
