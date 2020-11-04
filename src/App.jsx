@@ -95,7 +95,7 @@ function App() {
       {loginUser === null ? (
         <>
           <button
-            className="login-button"
+            className="button"
             onClick={() => {
               toggleLogin();
               if (showSignup) toggleSignup();
@@ -104,7 +104,7 @@ function App() {
             Login
           </button>
           <button
-            className="signup-button"
+            className="button"
             onClick={() => {
               toggleSignup();
               if (showLogin) toggleLogin();

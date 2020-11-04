@@ -13,3 +13,14 @@ th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+body {
+  background-color: gray;
+}
+
+.button {
+  font-size: 100px;
+  background-color: orange;
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+}
