@@ -1,6 +1,6 @@
 require("dotenv").config();
-
-const { ApolloServer } = require("apollo-server");
+const express = require("express");
+const { ApolloServer } = require("apollo-server-express");
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 const mongoose = require("mongoose");
@@ -36,9 +36,14 @@ const server = new ApolloServer({
   },
 });
 
+const app = express();
+app.use(express.static("build"));
+
+server.applyMiddleware({ app });
+
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(
     `Running a GraphQL API server with Apollo at localhost:${PORT}/graphql`
   );
