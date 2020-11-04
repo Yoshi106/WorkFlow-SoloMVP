@@ -1,6 +1,7 @@
 # Getting Started with SIMPLE WORKFLOW APP
 
-This project was created during my time as a student at Code Chrysalis
+This app is a siimple workflow tool and aims to make people to work at home without using email or papers.
+This was created during my time as a student at Code Chrysalis
 
 ## Available Scripts
 
