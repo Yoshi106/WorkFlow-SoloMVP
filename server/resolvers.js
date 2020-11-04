@@ -24,16 +24,16 @@ const resolvers = {
       const result = await Task.find({ responsible: args.user }).exec();
       return result;
     },
-    findMember: (parent, args) => {
-      return knex
-        .select()
-        .table("company")
-        .then((members) => {
-          let output;
-          [output] = members.filter((member) => member.name === args.name);
-          return output;
-        });
-    },
+    // findMember: (parent, args) => {
+    //   return knex
+    //     .select()
+    //     .table("company")
+    //     .then((members) => {
+    //       let output;
+    //       [output] = members.filter((member) => member.name === args.name);
+    //       return output;
+    //     });
+    // },
     findAllMembers: async (parent, args, { User }) => {
       let result;
       await User.find((err, users) => {
@@ -55,16 +55,16 @@ const resolvers = {
   },
 
   Mutation: {
-    modifyGroup: async (parent, args) => {
-      await knex("company")
-        .where({
-          name: args.name,
-        })
-        .update({
-          group: args.group,
-        });
-      return { msg: "Updated!" };
-    },
+    // modifyGroup: async (parent, args) => {
+    //   await knex("company")
+    //     .where({
+    //       name: args.name,
+    //     })
+    //     .update({
+    //       group: args.group,
+    //     });
+    //   return { msg: "Updated!" };
+    // },
     createMember: async (parent, args, { User }) => {
       try {
         const salt = 10;
@@ -82,14 +82,14 @@ const resolvers = {
         return { msg: "error" };
       }
     },
-    removeMember: async (parent, args) => {
-      await knex("company")
-        .where({
-          name: args.name,
-        })
-        .delete();
-      return { msg: "Removed!" };
-    },
+    // removeMember: async (parent, args) => {
+    //   await knex("company")
+    //     .where({
+    //       name: args.name,
+    //     })
+    //     .delete();
+    //   return { msg: "Removed!" };
+    // },
   },
 };
 

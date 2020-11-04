@@ -37,14 +37,11 @@ const typeDefs = gql`
   type Query {
     getAllTasks: [Task]
     getTask(user: String): [Task]
-    findMember(name: String): Member
     findAllMembers: [Member]
     logIn(user: String, password: String): Message
   }
   type Mutation {
-    modifyGroup(name: String, group: String): Message
     createMember(input: MemberInput): Message
-    removeMember(name: String): Message
   }
 `;
 
