@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function Tasklist({ tasks, setTasks }) {
+export default function Tasklist({ loginUser }) {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetchTasks().then((result) => {
+      setTasks(result.data.data.getTask);
+    });
+  }, [loginUser]);
+
+  async function fetchTasks() {
+    const res = await axios({
+      url: "/graphql",
+      method: "post",
+      data: {
+        query: `
+            query {getTask(user: "${loginUser}"){
+              num
+              country
+              date
+              status
+              technical
+              assistant
+              responsible
+            }}`,
+      },
+    });
+    return res;
+  }
   function taskGenerator() {
     let wrap = [["Case", "Status", "Date", "Tech", "Assistant", "In Charge"]];
     tasks.map((task) => {

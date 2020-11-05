@@ -15,12 +15,10 @@ tr:nth-child(even) {
 }
 
 body {
-  background-color: gray;
+  background-color: white;
 }
 
-.button {
-  font-size: 100px;
-  background-color: orange;
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+.Navbar {
+  background-color: lightskyblue;
+  height: 70px;
 }

@@ -1,64 +1,38 @@
 // import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Tasklist from "./Components/Tasklist";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
+import Navbar from "./Components/Navbar";
 
 function App() {
-  const [users, setUsers] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [loginUser, setLoginUser] = useState(null);
 
-  useEffect(() => {
-    fetchUsers().then((result) => {
-      setUsers(result.data.data.findAllMembers);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchUsers().then((result) => {
+  //     setUsers(result.data.data.findAllMembers);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    fetchTasks().then((result) => {
-      setTasks(result.data.data.getTask);
-    });
-  }, [loginUser]);
-
-  async function fetchTasks() {
-    const res = await axios({
-      url: "/graphql",
-      method: "post",
-      data: {
-        query: `
-        query {getTask(user: "${loginUser}"){
-          num
-          country
-          date
-          status
-          technical
-          assistant
-          responsible
-        }}`,
-      },
-    });
-    return res;
-  }
-
-  async function fetchUsers() {
-    const res = await axios({
-      url: "/graphql",
-      method: "post",
-      data: {
-        query: `
-        query {findAllMembers {
-          name
-          role
-        }}`,
-      },
-    });
-    return res;
-  }
+  // async function fetchUsers() {
+  //   const res = await axios({
+  //     url: "/graphql",
+  //     method: "post",
+  //     data: {
+  //       query: `
+  //       query {findAllMembers {
+  //         name
+  //         role
+  //       }}`,
+  //     },
+  //   });
+  //   return res;
+  // }
 
   // function getUserList() {
   //   const array = [];
@@ -67,15 +41,6 @@ function App() {
   //   }
   //   return array;
   // }
-
-  function toggleLogin() {
-    if (!showLogin) setShowLogin(true);
-    else setShowLogin(false);
-  }
-  function toggleSignup() {
-    if (!showSignup) setShowSignup(true);
-    else setShowSignup(false);
-  }
 
   return (
     <div className="App">
@@ -92,30 +57,15 @@ function App() {
         <option value="">User</option>
         {getUserList()}
       </select> */}
-      {loginUser === null ? (
-        <>
-          <button
-            className="button"
-            onClick={() => {
-              toggleLogin();
-              if (showSignup) toggleSignup();
-            }}
-          >
-            Login
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              toggleSignup();
-              if (showLogin) toggleLogin();
-            }}
-          >
-            Sign Up
-          </button>
-        </>
-      ) : (
-        <></>
-      )}
+      <Navbar
+        loginUser={loginUser}
+        setLoginUser={setLoginUser}
+        showSignup={showSignup}
+        setShowSignup={setShowSignup}
+        showLogin={showLogin}
+        setShowLogin={setShowLogin}
+      />
+
       {showLogin ? (
         <Login
           setLoginUser={setLoginUser}
@@ -135,11 +85,7 @@ function App() {
         <></>
       )}
 
-      {tasks !== null && loginUser !== null ? (
-        <Tasklist tasks={tasks} setTasks={setTasks} />
-      ) : (
-        <></>
-      )}
+      {loginUser !== null ? <Tasklist loginUser={loginUser} /> : <></>}
     </div>
   );
 }
