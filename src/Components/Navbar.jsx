@@ -19,7 +19,7 @@ export default function Navbar({
       {loginUser === null ? (
         <>
           <button
-            className="button"
+            className="btn"
             onClick={() => {
               toggleLogin();
               if (showSignup) toggleSignup();
@@ -28,7 +28,7 @@ export default function Navbar({
             Login
           </button>
           <button
-            className="button"
+            className="btn"
             onClick={() => {
               toggleSignup();
               if (showLogin) toggleLogin();
@@ -41,14 +41,19 @@ export default function Navbar({
         <></>
       )}
       {loginUser !== null ? (
-        <button
-          className="button"
-          onClick={() => {
-            setLoginUser(null);
-          }}
-        >
-          Logout
-        </button>
+        <>
+          <button
+            className="btn"
+            onClick={() => {
+              setLoginUser(null);
+            }}
+          >
+            Logout
+          </button>
+          <button className="btn" onClick={() => {}}>
+            Add Task
+          </button>
+        </>
       ) : (
         <></>
       )}

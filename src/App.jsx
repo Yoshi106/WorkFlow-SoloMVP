@@ -1,7 +1,6 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tasklist from "./Components/Tasklist";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
