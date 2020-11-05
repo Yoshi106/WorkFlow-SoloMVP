@@ -31,6 +31,8 @@ const Task = mongoose.model("Task", taskSchema);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
+  playground: true,
   context() {
     return { User, Task };
   },
