@@ -30,6 +30,14 @@ const typeDefs = gql`
     password: String!
   }
 
+  input TaskInput {
+    num: String!
+    country: String!
+    status: String!
+    technical: String
+    assistant: String
+  }
+
   type Message {
     msg: String
   }
@@ -42,6 +50,7 @@ const typeDefs = gql`
   }
   type Mutation {
     createMember(input: MemberInput): Message
+    createTask(input: TaskInput): Message
   }
 `;
 

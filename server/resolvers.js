@@ -4,9 +4,6 @@
 //   Date: GraphQLDateTime
 // };
 // export default customScalarResolver;
-
-// const openConnection = require("./mongoose");
-const mongoose = require("mongoose");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 
@@ -21,7 +18,7 @@ const resolvers = {
       return result;
     },
     getTask: async (parent, args, { Task }) => {
-      const result = await Task.find({ responsible: args.user }).exec();
+      const result = await Task.find({ responsible: args.user });
       return result;
     },
     // findMember: (parent, args) => {
@@ -49,22 +46,12 @@ const resolvers = {
         if (res) return { msg: "success" };
         else return { msg: "failed" };
       } catch {
-        return { boolean: "error" };
+        return { msg: "error" };
       }
     },
   },
 
   Mutation: {
-    // modifyGroup: async (parent, args) => {
-    //   await knex("company")
-    //     .where({
-    //       name: args.name,
-    //     })
-    //     .update({
-    //       group: args.group,
-    //     });
-    //   return { msg: "Updated!" };
-    // },
     createMember: async (parent, args, { User }) => {
       try {
         const salt = 10;
@@ -82,14 +69,26 @@ const resolvers = {
         return { msg: "error" };
       }
     },
-    // removeMember: async (parent, args) => {
-    //   await knex("company")
-    //     .where({
-    //       name: args.name,
-    //     })
-    //     .delete();
-    //   return { msg: "Removed!" };
-    // },
+    createTask: async (parent, args, { Task }) => {
+      try {
+        console.log(new Date());
+        const task = new Task({
+          num: args.input.num,
+          country: args.input.country,
+          date: new Date(),
+          status: args.input.status,
+          technical: args.input.technical,
+          assistant: args.input.assistant,
+          responsible: args.input.assistant,
+        });
+        await task.save((err, users) => {
+          if (err) return { msg: "error" };
+        });
+        return { msg: "success" };
+      } catch {
+        return { msg: "error" };
+      }
+    },
   },
 };
 

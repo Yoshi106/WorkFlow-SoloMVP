@@ -1,3 +1,6 @@
+import AddTask from "./AddTask";
+import React, { useState } from "react";
+
 export default function Navbar({
   loginUser,
   setLoginUser,
@@ -5,7 +8,11 @@ export default function Navbar({
   setShowSignup,
   showLogin,
   setShowLogin,
+  users,
+  status,
 }) {
+  const [showAddTask, setShowAddTask] = useState(false);
+
   function toggleLogin() {
     if (!showLogin) setShowLogin(true);
     else setShowLogin(false);
@@ -50,10 +57,24 @@ export default function Navbar({
           >
             Logout
           </button>
-          <button className="btn" onClick={() => {}}>
+          <button
+            className="btn"
+            onClick={() => {
+              setShowAddTask(true);
+            }}
+          >
             Add Task
           </button>
         </>
+      ) : (
+        <></>
+      )}
+      {showAddTask ? (
+        <AddTask
+          setShowAddTask={setShowAddTask}
+          users={users}
+          status={status}
+        />
       ) : (
         <></>
       )}

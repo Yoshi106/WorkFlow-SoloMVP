@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Pass from "./Pass";
 
-export default function Tasklist({ loginUser }) {
+export default function Tasklist({ loginUser, users, status }) {
   const [tasks, setTasks] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     async function fetchTasks() {
@@ -50,15 +52,15 @@ export default function Tasklist({ loginUser }) {
         <button
           className="btn"
           onClick={() => {
-            console.log(task.id);
-            setShowModal(true);
+            setSelectedTask(task);
+            setShowPass(true);
           }}
         >
           Pass
         </button>
       );
       wrap.push(store);
-      return store;
+      return null;
     });
     const taskElements = wrap.map((task, indexWrap) => {
       const colElements = task.map((col, indexTask) => {
@@ -75,31 +77,13 @@ export default function Tasklist({ loginUser }) {
       <table>
         <tbody>{taskGenerator()}</tbody>
       </table>
-      {showModal ? (
-        <div
-          id="myModal"
-          className="modal"
-          onClick={() => {
-            setShowModal(false);
-          }}
-        >
-          <div
-            className="modal-content"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <span
-              className="close"
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              &times;
-            </span>
-            <p>Some text in the Modal..</p>
-          </div>
-        </div>
+      {showPass ? (
+        <Pass
+          setShowPass={setShowPass}
+          selectedTask={selectedTask}
+          users={users}
+          status={status}
+        />
       ) : (
         <></>
       )}
