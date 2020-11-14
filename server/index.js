@@ -11,20 +11,21 @@ mongoose.connect(
 );
 
 const userSchema = new mongoose.Schema({
-  name: "String",
-  role: "String",
-  hushpass: "String",
+  name: String,
+  role: String,
+  hushpass: String,
 });
 const User = mongoose.model("User", userSchema);
 
 const taskSchema = new mongoose.Schema({
-  num: "String",
-  country: "String",
-  date: "Date",
-  status: "String",
-  technical: "String",
-  assistant: "String",
-  responsible: "String",
+  num: String,
+  country: String,
+  date: Date,
+  status: String,
+  technical: String,
+  assistant: String,
+  responsible: String,
+  histories: [{ date: Date, responsible: String }],
 });
 const Task = mongoose.model("Task", taskSchema);
 

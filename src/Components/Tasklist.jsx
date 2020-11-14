@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Pass from "./Pass";
+import PassTask from "./PassTask";
 
 export default function Tasklist({ loginUser, users, status }) {
   const [tasks, setTasks] = useState([]);
@@ -78,7 +78,7 @@ export default function Tasklist({ loginUser, users, status }) {
         <tbody>{taskGenerator()}</tbody>
       </table>
       {showPass ? (
-        <Pass
+        <PassTask
           setShowPass={setShowPass}
           selectedTask={selectedTask}
           users={users}

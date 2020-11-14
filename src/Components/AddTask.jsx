@@ -45,7 +45,6 @@ export default function AddTask({ setShowAddTask, users, status }) {
 
   return (
     <div
-      id="myModal"
       className="modal"
       onClick={() => {
         setShowAddTask(false);
@@ -79,6 +78,7 @@ export default function AddTask({ setShowAddTask, users, status }) {
             placeholder="ex. 123456"
             className="modalInput"
             maxLength="6"
+            minLength="6"
             ref={numRef}
             required
           />
